@@ -229,20 +229,6 @@ function configure_memory_parameters() {
 	#
 	MemTotalStr=`cat /proc/meminfo | grep MemTotal`
 	MemTotal=${MemTotalStr:16:8}
-	prjname=`getprop ro.boot.prjname`
-	# configure boost pool
-	if [ -n "$prjname" ]; then
-		case $prjname in
-			"21001"|"21201"|"20846"|"20847")
-			if [ $MemTotal -gt 8388608 ]; then
-				echo 128000 > /proc/boost_pool/camera_pages
-			fi
-			;;
-		*)
-			echo "$prjname:no special config<camera_pages>"
-			;;
-		esac
-	fi
 #ifdef OPLUS_FEATURE_ZRAM_OPT
 	# For vts test which has replace system.img
 	if [ -L "/product" ]; then
